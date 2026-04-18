@@ -1,5 +1,5 @@
-import 'package:bookly_app/Features/home/View/homepage.dart';
 import 'package:bookly_app/Features/home/View/widgets/custom_home_app_bar.dart';
+import 'package:bookly_app/Features/home/View/widgets/custom_homepage_list_item.dart';
 
 import 'package:flutter/material.dart';
 
@@ -14,10 +14,7 @@ class HomePage extends StatelessWidget {
           children: [
             const CustomHomeAppBar(),
             const SizedBox(height: 44),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: const CustomHomePageListItem(),
-            ),
+            const CustomHomePageListItem(),
           ],
         ),
       ),
