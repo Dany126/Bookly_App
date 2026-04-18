@@ -1,3 +1,4 @@
+import 'package:bookly_app/Core/Utilits/go_router.dart';
 import 'package:bookly_app/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +38,7 @@ class _AnimationLogoState extends State<AnimationLogo>
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         // 🚀 Navigate AFTER animation ends
-        GoRouter.of(context).push('/home');
+        GoRouter.of(context).pushReplacement(AppRouter.homeRoute);
       }
     });
   }
