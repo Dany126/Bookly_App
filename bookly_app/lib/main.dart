@@ -1,3 +1,5 @@
+import 'package:bookly_app/Core/Utilits/go_router.dart';
+
 import 'package:bookly_app/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -10,13 +12,11 @@ class BooklyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: AppRouter.router,
       theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: kPrimaryColor),
 
       debugShowCheckedModeBanner: false,
-      title: 'Bookly App',
-
-      home: const Scaffold(body: Center(child: Text('Hello Bookly App'))),
     );
   }
 }
