@@ -1,5 +1,5 @@
-import 'package:bookly_app/Core/Utilities/go_router.dart';
-import 'package:bookly_app/Core/Utilities/styles.dart';
+import 'package:bookly_app/Core/Utilits/go_router.dart';
+import 'package:bookly_app/Core/Utilits/styles.dart';
 
 import 'package:bookly_app/Features/home/View/widgets/CustomBestSellerListView.dart';
 import 'package:bookly_app/Features/home/View/widgets/custom_home_app_bar.dart';
