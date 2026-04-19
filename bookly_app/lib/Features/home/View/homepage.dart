@@ -15,6 +15,8 @@ class HomePage extends StatelessWidget {
             const CustomHomeAppBar(),
             const SizedBox(height: 44),
             const CustomHomePageListItem(),
+            const SizedBox(height: 50),
+            Text("Best Seller"),
           ],
         ),
       ),
