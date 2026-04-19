@@ -1,4 +1,5 @@
 import 'package:bookly_app/Core/Utilits/styles.dart';
+import 'package:bookly_app/Features/home/View/widgets/CustomContainerDetailBody.dart';
 import 'package:bookly_app/Features/home/View/widgets/CustomDetailImageView.dart';
 import 'package:bookly_app/Features/home/View/widgets/CustomDetailsAppBar.dart';
 import 'package:bookly_app/Features/home/View/widgets/CustomRowRating.dart';
@@ -31,6 +32,23 @@ class DetailsPage extends StatelessWidget {
           const SizedBox(height: 14),
 
           const CustomRowRating(),
+          const SizedBox(height: 37),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomContainerDetailBody(
+                color: Colors.white,
+                isLeft: true,
+                textColor: Colors.black,
+              ),
+
+              CustomContainerDetailBody(
+                color: Color(0xFFEF8262),
+                text: "Free preview",
+                isLeft: false,
+              ),
+            ],
+          ),
         ],
       ),
     );
