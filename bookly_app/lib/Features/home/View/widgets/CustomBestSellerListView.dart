@@ -1,5 +1,7 @@
+import 'package:bookly_app/Core/Utilits/go_router.dart';
 import 'package:bookly_app/Features/home/View/widgets/CustomBestSellerItem.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomBestSellerListView extends StatelessWidget {
   const CustomBestSellerListView({super.key});
@@ -11,7 +13,12 @@ class CustomBestSellerListView extends StatelessWidget {
         itemCount: 10,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) => const CustomBestSellerItem(),
+        itemBuilder: (context, index) => GestureDetector(
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.detailsRoute);
+          },
+          child: const CustomBestSellerItem(),
+        ),
       ),
     );
   }
