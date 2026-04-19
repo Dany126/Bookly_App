@@ -32,9 +32,14 @@ class CustomContainerDetailBody extends StatelessWidget {
               ),
       ),
       child: Center(
-        child: Text(
-          text ?? "19.99\$",
-          style: Styles.textStyle18.copyWith(color: textColor ?? Colors.white),
+        child: TextButton(
+          onPressed: () {},
+          child: Text(
+            text ?? "19.99\$",
+            style: Styles.textStyle18.copyWith(
+              color: textColor ?? Colors.white,
+            ),
+          ),
         ),
       ),
     );
