@@ -1,5 +1,7 @@
+import 'package:bookly_app/Core/Utilits/go_router.dart';
 import 'package:bookly_app/Features/home/View/widgets/custom_book_item.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomHomePageListItem extends StatelessWidget {
   const CustomHomePageListItem({super.key});
@@ -16,7 +18,12 @@ class CustomHomePageListItem extends StatelessWidget {
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: const CustomBookItem(),
+              child: GestureDetector(
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.detailsRoute);
+                },
+                child: const CustomBookItem(),
+              ),
             );
           },
         ),

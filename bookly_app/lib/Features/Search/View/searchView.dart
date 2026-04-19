@@ -1,3 +1,4 @@
+import 'package:bookly_app/Features/Search/View/widgets/customTextField.dart';
 import 'package:bookly_app/Features/home/View/widgets/CustomBestSellerListView.dart';
 import 'package:flutter/material.dart';
 
@@ -7,31 +8,16 @@ class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
               padding: const EdgeInsets.only(left: 5, top: 20),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  hintText: "Search",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide.none,
-                  ),
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.close),
-                  ),
-                ),
-              ),
+              child: CustomTextField(),
             ),
-            const CustomBestSellerListView(),
-          ],
-        ),
+          ),
+          SliverFillRemaining(child: const CustomBestSellerListView()),
+        ],
       ),
     );
   }
