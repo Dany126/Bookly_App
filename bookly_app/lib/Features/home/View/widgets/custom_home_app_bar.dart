@@ -1,6 +1,7 @@
 import 'package:bookly_app/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomHomeAppBar extends StatelessWidget {
   const CustomHomeAppBar({super.key});
@@ -13,7 +14,12 @@ class CustomHomeAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(kLogoPath),
-          IconButton(onPressed: () {}, icon: FaIcon(FontAwesomeIcons.search)),
+          IconButton(
+            onPressed: () {
+              GoRouter.of(context).push('/search');
+            },
+            icon: FaIcon(FontAwesomeIcons.search, size: 20),
+          ),
         ],
       ),
     );

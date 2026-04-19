@@ -1,5 +1,5 @@
 import 'package:bookly_app/Core/Utilits/styles.dart';
-import 'package:bookly_app/Features/home/View/homepage.dart';
+
 import 'package:bookly_app/Features/home/View/widgets/CustomRowRating.dart';
 import 'package:flutter/material.dart';
 
