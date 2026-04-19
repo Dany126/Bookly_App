@@ -1,4 +1,4 @@
-import 'package:bookly_app/Core/Utilits/styles.dart';
+import 'package:bookly_app/Core/Utilities/styles.dart';
 
 import 'package:bookly_app/Features/home/View/widgets/CustomRowRating.dart';
 import 'package:bookly_app/constant.dart';

@@ -1,4 +1,4 @@
-import 'package:bookly_app/Core/Utilits/styles.dart';
+import 'package:bookly_app/Core/Utilities/styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomContainerDetailBody extends StatelessWidget {
