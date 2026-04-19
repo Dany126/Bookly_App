@@ -1,3 +1,4 @@
+import 'package:bookly_app/constant.dart';
 import 'package:flutter/material.dart';
 
 class CustomBookItem extends StatelessWidget {
@@ -9,7 +10,7 @@ class CustomBookItem extends StatelessWidget {
       aspectRatio: 2.7 / 4,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
-        child: Image.asset("assets/images/Item.png", fit: BoxFit.cover),
+        child: Image.asset(kTestImage, fit: BoxFit.cover),
       ),
     );
   }

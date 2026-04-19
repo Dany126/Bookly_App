@@ -7,6 +7,7 @@ class CustomRowRating extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Icon(Icons.star, color: Color(0xFFFFDD4F), size: 20),
         const SizedBox(width: 4),

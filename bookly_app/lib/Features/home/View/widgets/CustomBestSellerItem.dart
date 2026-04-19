@@ -1,6 +1,7 @@
 import 'package:bookly_app/Core/Utilits/styles.dart';
 
 import 'package:bookly_app/Features/home/View/widgets/CustomRowRating.dart';
+import 'package:bookly_app/constant.dart';
 import 'package:flutter/material.dart';
 
 class CustomBestSellerItem extends StatelessWidget {
@@ -18,7 +19,7 @@ class CustomBestSellerItem extends StatelessWidget {
               aspectRatio: 2.4 / 4,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.asset("assets/images/Item.png", fit: BoxFit.cover),
+                child: Image.asset(kTestImage, fit: BoxFit.cover),
               ),
             ),
 
