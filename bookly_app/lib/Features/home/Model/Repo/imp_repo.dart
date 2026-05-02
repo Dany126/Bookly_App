@@ -5,7 +5,9 @@ import 'package:bookly_app/Features/home/Model/book_model/book_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-class ImplementationRepo implements Repo {
+class ImplementationRepo implements HomeRepo {
+  Dio dio;
+  ImplementationRepo(this.dio);
   @override
   Future<Either<ServerFailure, List<BookModel>>> fetchNewestBooks({
     required String categoryName,

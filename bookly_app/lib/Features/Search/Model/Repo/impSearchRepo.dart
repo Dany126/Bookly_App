@@ -6,11 +6,13 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 class ImplementationSearchRepo implements SearchRepo {
+  Dio dio;
+  ImplementationSearchRepo(this.dio);
   @override
   Future<Either<Failure, List<BookModel>>> fetchAllBooks() async {
     try {
       var result = await ApiServices(
-        Dio(),
+        dio,
       ).get(endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=');
 
       List<BookModel> books = [];
