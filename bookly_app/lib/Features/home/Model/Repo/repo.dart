@@ -12,7 +12,4 @@ abstract class Repo {
   Future<Either<ServerFailure, List<BookModel>>> fetchSimilarBooks({
     required String category,
   });
-  Future<Either<ServerFailure, List<BookModel>>> fetchSearchBooks(
-    String search,
-  );
 }
