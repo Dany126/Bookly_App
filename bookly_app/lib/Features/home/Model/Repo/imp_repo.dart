@@ -7,32 +7,43 @@ import 'package:dio/dio.dart';
 
 class ImplementationRepo implements Repo {
   @override
-  Future<Either<ServerFailure, List<BookModel>>> fetchNewestBooks() async {
+  Future<Either<ServerFailure, List<BookModel>>> fetchNewestBooks({
+    required String categoryName,
+  }) async {
     try {
-      var data = await ApiServices(
-        Dio(),
-      ).get(endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=all');
+      final data = await ApiServices(Dio()).get(
+        endPoint: 'volumes?filter=free-ebooks&orderBy=newest&q=$categoryName',
+      );
+
       List<BookModel> books = [];
-      for (var item in data['items']) {
-        try {
-          books.add(BookModel.fromJson(item));
-        } catch (e) {
-          // Handle parsing error for this item, e.g., log it or skip it
-          print('Error parsing book item: $e');
+
+      final items = data['items'];
+
+      if (items != null) {
+        for (var item in items) {
+          try {
+            books.add(BookModel.fromJson(item));
+          } catch (e) {
+            print('Error parsing book item: $e');
+          }
         }
       }
+
       return Right(books);
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return Left(ServerFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<ServerFailure, List<BookModel>>> fetchFeaturedBooks() async {
+  Future<Either<ServerFailure, List<BookModel>>> fetchFeaturedBooks({
+    required String categoryName,
+  }) async {
     try {
-      var data = await ApiServices(
-        Dio(),
-      ).get(endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=all');
+      var data = await ApiServices(Dio()).get(
+        endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=',
+        categoryName: categoryName,
+      );
       List<BookModel> books = [];
       for (var item in data['items']) {
         try {
