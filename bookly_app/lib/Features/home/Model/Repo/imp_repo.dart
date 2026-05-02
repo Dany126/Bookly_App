@@ -1,4 +1,4 @@
-import 'package:bookly_app/Core/Utilits/api_services.dart';
+import 'package:bookly_app/Core/utilities/api_services.dart';
 import 'package:bookly_app/Core/error/failure.dart';
 import 'package:bookly_app/Features/home/Model/Repo/repo.dart';
 import 'package:bookly_app/Features/home/Model/book_model/book_model.dart';

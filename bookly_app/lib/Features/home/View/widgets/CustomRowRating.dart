@@ -1,4 +1,4 @@
-import 'package:bookly_app/Core/Utilits/styles.dart';
+import 'package:bookly_app/Core/utilities/styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomRowRating extends StatelessWidget {
