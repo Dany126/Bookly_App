@@ -13,7 +13,7 @@ class ImplementationRepo implements HomeRepo {
     required String categoryName,
   }) async {
     try {
-      final data = await ApiServices(Dio()).get(
+      final data = await ApiServices(dio).get(
         endPoint: 'volumes?filter=free-ebooks&orderBy=newest&q=$categoryName',
       );
 
@@ -42,7 +42,7 @@ class ImplementationRepo implements HomeRepo {
     required String categoryName,
   }) async {
     try {
-      var data = await ApiServices(Dio()).get(
+      var data = await ApiServices(dio).get(
         endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=',
         categoryName: categoryName,
       );
@@ -66,7 +66,7 @@ class ImplementationRepo implements HomeRepo {
     required String category,
   }) async {
     try {
-      var data = await ApiServices(Dio()).get(
+      var data = await ApiServices(dio).get(
         endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=',
         categoryName: category,
       );

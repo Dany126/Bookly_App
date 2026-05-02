@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewestBooksCubit extends Cubit<NewestBooksState> {
   NewestBooksCubit(this.homeRepo) : super(NewestBooksInitial());
-  final Repo homeRepo;
+  final HomeRepo homeRepo;
   Future<void> fetchNewestBooks({required String categoryName}) async {
     var request = await homeRepo.fetchNewestBooks(categoryName: categoryName);
     request.fold(
