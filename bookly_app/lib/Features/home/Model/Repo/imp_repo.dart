@@ -3,17 +3,16 @@ import 'package:bookly_app/Core/error/failure.dart';
 import 'package:bookly_app/Features/home/Model/Repo/repo.dart';
 import 'package:bookly_app/Features/home/Model/book_model/book_model.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 
 class ImplementationRepo implements HomeRepo {
-  Dio dio;
-  ImplementationRepo(this.dio);
+  ApiServices apiServices;
+  ImplementationRepo(this.apiServices);
   @override
   Future<Either<ServerFailure, List<BookModel>>> fetchNewestBooks({
     required String categoryName,
   }) async {
     try {
-      final data = await ApiServices(dio).get(
+      final data = await apiServices.get(
         endPoint: 'volumes?filter=free-ebooks&orderBy=newest&q=$categoryName',
       );
 
@@ -42,7 +41,7 @@ class ImplementationRepo implements HomeRepo {
     required String categoryName,
   }) async {
     try {
-      var data = await ApiServices(dio).get(
+      var data = await apiServices.get(
         endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=',
         categoryName: categoryName,
       );
@@ -66,7 +65,7 @@ class ImplementationRepo implements HomeRepo {
     required String category,
   }) async {
     try {
-      var data = await ApiServices(dio).get(
+      var data = await apiServices.get(
         endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=',
         categoryName: category,
       );
