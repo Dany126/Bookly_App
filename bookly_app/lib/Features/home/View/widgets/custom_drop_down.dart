@@ -12,8 +12,9 @@ class CustomDropDown extends StatefulWidget {
 }
 
 class _CustomDropDownState extends State<CustomDropDown> {
-  String? selectedCategory;
-  List<String> categories = [
+  String? selectedCategory = 'All';
+
+  final List<String> categories = [
     'All',
     'Fiction',
     'Science',
@@ -28,24 +29,16 @@ class _CustomDropDownState extends State<CustomDropDown> {
     'Education',
     'Children',
   ];
+
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
-        elevation: 10,
-
+        value: selectedCategory,
         dropdownColor: kPrimaryColor,
         borderRadius: BorderRadius.circular(16),
-
-        value: selectedCategory,
-        hint: Text(
-          "Category",
-          style: Styles.textStyle18.copyWith(
-            fontWeight: FontWeight.w800,
-            color: Colors.white54,
-          ),
-        ),
         icon: const Icon(Icons.keyboard_arrow_down),
+
         items: categories.map((item) {
           return DropdownMenuItem(
             value: item,
@@ -58,12 +51,17 @@ class _CustomDropDownState extends State<CustomDropDown> {
             ),
           );
         }).toList(),
+
         onChanged: (value) {
+          if (value == null) return;
+
           setState(() {
             selectedCategory = value;
           });
+
+          // 🔥 trigger cubit
           context.read<NewestBooksCubit>().fetchNewestBooks(
-            categoryName: value ?? 'all',
+            categoryName: value.toLowerCase(),
           );
         },
       ),
