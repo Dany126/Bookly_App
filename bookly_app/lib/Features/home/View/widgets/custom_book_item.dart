@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class CustomBookItem extends StatelessWidget {
-  const CustomBookItem({super.key});
+  const CustomBookItem({super.key, required this.imageLink});
+  final String imageLink;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class CustomBookItem extends StatelessWidget {
             );
           },
           errorWidget: (context, url, error) => const Icon(Icons.error),
-          imageUrl: '',
+          imageUrl: imageLink,
         ),
       ),
     );

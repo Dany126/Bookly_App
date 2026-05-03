@@ -1,14 +1,16 @@
+import 'dart:developer';
+
 import 'package:bookly_app/Core/utilities/api_services.dart';
 import 'package:bookly_app/Core/error/failure.dart';
 import 'package:bookly_app/Features/home/Model/Repo/repo.dart';
-import 'package:bookly_app/Features/home/Model/book_model/book_model.dart';
+import 'package:bookly_app/Features/home/Model/book_model/item.dart';
 import 'package:dartz/dartz.dart';
 
 class ImplementationRepo implements HomeRepo {
   ApiServices apiServices;
   ImplementationRepo(this.apiServices);
   @override
-  Future<Either<ServerFailure, List<BookModel>>> fetchNewestBooks({
+  Future<Either<ServerFailure, List<Item>>> fetchNewestBooks({
     required String categoryName,
   }) async {
     try {
@@ -16,14 +18,14 @@ class ImplementationRepo implements HomeRepo {
         endPoint: 'volumes?filter=free-ebooks&orderBy=newest&q=$categoryName',
       );
 
-      List<BookModel> books = [];
+      List<Item> books = [];
 
       final items = data['items'];
 
       if (items != null) {
         for (var item in items) {
           try {
-            books.add(BookModel.fromJson(item));
+            books.add(Item.fromJson(item));
           } catch (e) {
             print('Error parsing book item: $e');
           }
@@ -37,21 +39,21 @@ class ImplementationRepo implements HomeRepo {
   }
 
   @override
-  Future<Either<ServerFailure, List<BookModel>>> fetchFeaturedBooks({
-    required String categoryName,
+  Future<Either<ServerFailure, List<Item>>> fetchFeaturedBooks({
+    String categoryName = 'all',
   }) async {
     try {
       var data = await apiServices.get(
         endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=',
         categoryName: categoryName,
       );
-      List<BookModel> books = [];
+      List<Item> books = [];
       for (var item in data['items']) {
         try {
-          books.add(BookModel.fromJson(item));
+          books.add(Item.fromJson(item));
         } catch (e) {
           // Handle parsing error for this item, e.g., log it or skip it
-          print('Error parsing book item: $e');
+          log('Error parsing book item: $e');
         }
       }
       return Right(books);
@@ -61,7 +63,7 @@ class ImplementationRepo implements HomeRepo {
   }
 
   @override
-  Future<Either<ServerFailure, List<BookModel>>> fetchSimilarBooks({
+  Future<Either<ServerFailure, List<Item>>> fetchSimilarBooks({
     required String category,
   }) async {
     try {
@@ -69,10 +71,10 @@ class ImplementationRepo implements HomeRepo {
         endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=',
         categoryName: category,
       );
-      List<BookModel> books = [];
+      List<Item> books = [];
       for (var item in data['items']) {
         try {
-          books.add(BookModel.fromJson(item));
+          books.add(Item.fromJson(item));
         } catch (e) {
           // Handle parsing error for this item, e.g., log it or skip it
           print('Error parsing book item: $e');

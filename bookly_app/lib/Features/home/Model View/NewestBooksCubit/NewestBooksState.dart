@@ -1,4 +1,4 @@
-import 'package:bookly_app/Features/home/Model/book_model/book_model.dart';
+import 'package:bookly_app/Features/home/Model/book_model/item.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class NewestBooksState extends Equatable {
@@ -17,6 +17,6 @@ class NewestBooksFailure extends NewestBooksState {
 
 // ignore: must_be_immutable
 class NewestBooksSuccess extends NewestBooksState {
-  List<BookModel> books;
+  List<Item> books;
   NewestBooksSuccess(this.books);
 }

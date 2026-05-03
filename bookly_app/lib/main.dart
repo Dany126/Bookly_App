@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+  setupServiceLocator();
   runApp(const BooklyApp());
 }
 
@@ -27,7 +28,8 @@ class BooklyApp extends StatelessWidget {
         ),
         BlocProvider<FeatureBooksCubit>(
           create: (context) =>
-              FeatureBooksCubit(getIt.get<ImplementationRepo>()),
+              FeatureBooksCubit(getIt.get<ImplementationRepo>())
+                ..fetchFeatureBooks(categoryName: 'all'),
         ),
       ],
       child: MaterialApp.router(

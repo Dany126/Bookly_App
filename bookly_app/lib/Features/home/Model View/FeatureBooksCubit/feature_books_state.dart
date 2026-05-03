@@ -1,4 +1,4 @@
-import 'package:bookly_app/Features/home/Model/book_model/book_model.dart';
+import 'package:bookly_app/Features/home/Model/book_model/item.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class FeatureBooksState extends Equatable {
@@ -18,6 +18,6 @@ class FeatureBooksFailure extends FeatureBooksState {
 }
 
 class FeatureBooksSuccess extends FeatureBooksState {
-  final List<BookModel> books;
+  final List<Item> books;
   const FeatureBooksSuccess(this.books);
 }
