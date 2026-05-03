@@ -1,6 +1,8 @@
 import 'package:bookly_app/Core/utilities/styles.dart';
+import 'package:bookly_app/Features/home/Model%20View/NewestBooksCubit/NewestBooksCubit.dart';
 import 'package:bookly_app/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomDropDown extends StatefulWidget {
   const CustomDropDown({super.key});
@@ -60,6 +62,9 @@ class _CustomDropDownState extends State<CustomDropDown> {
           setState(() {
             selectedCategory = value;
           });
+          context.read<NewestBooksCubit>().fetchNewestBooks(
+            categoryName: value ?? 'all',
+          );
         },
       ),
     );

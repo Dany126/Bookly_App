@@ -1,11 +1,13 @@
 import 'package:bookly_app/Core/utilities/go_router.dart';
 import 'package:bookly_app/Core/utilities/styles.dart';
+import 'package:bookly_app/Features/home/Model%20View/NewestBooksCubit/NewestBooksCubit.dart';
+import 'package:bookly_app/Features/home/Model%20View/NewestBooksCubit/NewestBooksState.dart';
 
 import 'package:bookly_app/Features/home/View/widgets/CustomBestSellerListView.dart';
 import 'package:bookly_app/Features/home/View/widgets/custom_drop_down.dart';
 import 'package:bookly_app/Features/home/View/widgets/custom_home_app_bar.dart';
 import 'package:bookly_app/Features/home/View/widgets/custom_homepage_list_item.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
@@ -38,17 +40,21 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
 
-                Container(
-                  margin: const EdgeInsets.only(right: 16),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      width: 2,
-                      color: Color.fromRGBO(215, 40, 40, 0.694),
-                    ),
-                  ),
-                  child: CustomDropDown(),
+                BlocBuilder<NewestBooksCubit, NewestBooksState>(
+                  builder: (context, state) {
+                    return Container(
+                      margin: const EdgeInsets.only(right: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          width: 2,
+                          color: Color.fromRGBO(215, 40, 40, 0.694),
+                        ),
+                      ),
+                      child: CustomDropDown(),
+                    );
+                  },
                 ),
               ],
             ),
