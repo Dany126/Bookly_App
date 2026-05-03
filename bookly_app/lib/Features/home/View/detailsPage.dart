@@ -24,7 +24,9 @@ class DetailsPage extends StatelessWidget {
               children: [
                 const CustomDetailsAppBar(),
                 const SizedBox(height: 30),
-                const CustomDetailImageView(),
+                CustomDetailImageView(
+                  imageLink: book.volumeInfo?.imageLinks?.thumbnail ?? "",
+                ),
                 const SizedBox(height: 40),
                 Text(
                   book.volumeInfo?.title ?? "unknown Title",
