@@ -36,7 +36,6 @@ class ServerFailure extends Failure {
         return ServerFailure('Bad certificate error occurred');
 
       case DioExceptionType.unknown:
-      default:
         return ServerFailure(dioException.message ?? 'Unknown error occurred');
     }
   }
