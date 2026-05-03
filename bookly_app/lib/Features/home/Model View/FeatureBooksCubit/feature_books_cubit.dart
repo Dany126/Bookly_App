@@ -12,7 +12,7 @@ class FeatureBooksCubit extends Cubit<FeatureBooksState> {
     var result = await homeRepo.fetchFeaturedBooks(categoryName: categoryName);
     result.fold(
       (failure) {
-        emit(FeatureBooksFailure(failure.message));
+        emit(FeatureBooksFailure(failure));
       },
       (books) {
         emit(FeatureBooksSuccess(books));

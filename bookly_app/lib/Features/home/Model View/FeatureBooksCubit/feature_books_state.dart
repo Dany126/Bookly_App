@@ -1,3 +1,4 @@
+import 'package:bookly_app/Core/error/failure.dart';
 import 'package:bookly_app/Features/home/Model/book_model/item.dart';
 import 'package:equatable/equatable.dart';
 
@@ -13,8 +14,8 @@ class FeatureBooksInitial extends FeatureBooksState {}
 class FeatureBooksLoading extends FeatureBooksState {}
 
 class FeatureBooksFailure extends FeatureBooksState {
-  final String errorMessage;
-  const FeatureBooksFailure(this.errorMessage);
+  final Failure failure;
+  const FeatureBooksFailure(this.failure);
 }
 
 class FeatureBooksSuccess extends FeatureBooksState {

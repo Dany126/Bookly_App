@@ -19,6 +19,7 @@ class CustomBookItem extends StatelessWidget {
           },
           errorWidget: (context, url, error) => const Icon(Icons.error),
           imageUrl: imageLink,
+          fit: BoxFit.cover,
         ),
       ),
     );
