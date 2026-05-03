@@ -42,11 +42,15 @@ class _CustomDropDownState extends State<CustomDropDown> {
         items: categories.map((item) {
           return DropdownMenuItem(
             value: item,
-            child: Text(
-              item,
-              style: Styles.textStyle14.copyWith(
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
+            child: Center(
+              child: Text(
+                item,
+
+                style: Styles.textStyle14.copyWith(
+                  fontWeight: FontWeight.w600,
+
+                  color: Colors.white,
+                ),
               ),
             ),
           );
@@ -59,7 +63,6 @@ class _CustomDropDownState extends State<CustomDropDown> {
             selectedCategory = value;
           });
 
-          // 🔥 trigger cubit
           context.read<NewestBooksCubit>().fetchNewestBooks(
             categoryName: value.toLowerCase(),
           );

@@ -6,6 +6,7 @@ class NewestBooksCubit extends Cubit<NewestBooksState> {
   NewestBooksCubit(this.homeRepo) : super(NewestBooksInitial());
   final HomeRepo homeRepo;
   Future<void> fetchNewestBooks({required String categoryName}) async {
+    emit(NewestBooksLoading());
     var request = await homeRepo.fetchNewestBooks(categoryName: categoryName);
     request.fold(
       (failure) {

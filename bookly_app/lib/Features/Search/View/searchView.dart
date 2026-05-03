@@ -16,7 +16,7 @@ class SearchView extends StatelessWidget {
               child: CustomTextField(),
             ),
           ),
-          SliverFillRemaining(child: const CustomBestSellerListView()),
+          SliverFillRemaining(child: const CustomNewestBooksListView()),
         ],
       ),
     );

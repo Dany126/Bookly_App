@@ -35,7 +35,7 @@ class CustomContainerDetailBody extends StatelessWidget {
         child: TextButton(
           onPressed: () {},
           child: Text(
-            text ?? "19.99\$",
+            text ?? "Free",
             style: Styles.textStyle18.copyWith(
               color: textColor ?? Colors.white,
             ),

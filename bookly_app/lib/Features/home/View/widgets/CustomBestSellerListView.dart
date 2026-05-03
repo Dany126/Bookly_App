@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class CustomBestSellerListView extends StatelessWidget {
-  const CustomBestSellerListView({super.key});
+class CustomNewestBooksListView extends StatelessWidget {
+  const CustomNewestBooksListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,9 @@ class CustomBestSellerListView extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  GoRouter.of(context).push(AppRouter.detailsRoute);
+                  GoRouter.of(
+                    context,
+                  ).push(AppRouter.detailsRoute, extra: state.books[index]);
                 },
                 child: CustomBestSellerItem(item: state.books[index]),
               );

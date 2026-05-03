@@ -1,16 +1,19 @@
 import 'package:bookly_app/Core/utilities/styles.dart';
+import 'package:bookly_app/Features/home/Model/book_model/item.dart';
 import 'package:bookly_app/Features/home/View/widgets/CustomContainerDetailBody.dart';
 import 'package:bookly_app/Features/home/View/widgets/CustomDetailImageView.dart';
 import 'package:bookly_app/Features/home/View/widgets/CustomDetailListView.dart';
 import 'package:bookly_app/Features/home/View/widgets/CustomDetailsAppBar.dart';
 import 'package:bookly_app/Features/home/View/widgets/CustomRowRating.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final book = GoRouterState.of(context).extra as Item;
     return Scaffold(
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
@@ -24,14 +27,20 @@ class DetailsPage extends StatelessWidget {
                 const CustomDetailImageView(),
                 const SizedBox(height: 40),
                 Text(
-                  "The Jungle Book",
+                  book.volumeInfo?.title ?? "unknown Title",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: Styles.textStyle30.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Rudyard Kipling",
+                  book.volumeInfo?.authors?.isNotEmpty == true
+                      ? book.volumeInfo!.authors!.first
+                      : "Unknown author",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: Styles.textStyle18.copyWith(
                     color: const Color.fromRGBO(255, 255, 255, .7),
                   ),
@@ -50,7 +59,7 @@ class DetailsPage extends StatelessWidget {
 
                     CustomContainerDetailBody(
                       color: Color(0xFFEF8262),
-                      text: "Free preview",
+                      text: "preview",
                       isLeft: false,
                     ),
                   ],

@@ -11,10 +11,10 @@ class CustomRowRating extends StatelessWidget {
       children: [
         const Icon(Icons.star, color: Color(0xFFFFDD4F), size: 20),
         const SizedBox(width: 4),
-        Text("4.8", style: Styles.textStyle14),
+        Text("0", style: Styles.textStyle14),
         SizedBox(width: 9),
         Text(
-          "(2390)",
+          "(0)",
           style: Styles.textStyle14.copyWith(
             color: Color.fromRGBO(255, 255, 255, .7),
           ),
