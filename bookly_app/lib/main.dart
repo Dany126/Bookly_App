@@ -1,8 +1,10 @@
 import 'package:bookly_app/Core/utilities/ServiceLocator.dart';
 import 'package:bookly_app/Core/utilities/go_router.dart';
 import 'package:bookly_app/Features/home/Model%20View/FeatureBooksCubit/feature_books_cubit.dart';
+import 'package:bookly_app/Features/home/Model%20View/GlobalFilterCubit/FilerCubit.dart';
 
 import 'package:bookly_app/Features/home/Model%20View/NewestBooksCubit/NewestBooksCubit.dart';
+import 'package:bookly_app/Features/home/Model%20View/SimilerBooksCubit/SimilarBooksCubit.dart';
 import 'package:bookly_app/Features/home/Model/Repo/imp_repo.dart';
 
 import 'package:bookly_app/constant.dart';
@@ -32,6 +34,12 @@ class BooklyApp extends StatelessWidget {
               FeatureBooksCubit(getIt.get<ImplementationRepo>())
                 ..fetchFeatureBooks(categoryName: 'all'),
         ),
+
+        BlocProvider<SimilarBooksCubit>(
+          create: (context) =>
+              SimilarBooksCubit(getIt.get<ImplementationRepo>()),
+        ),
+        BlocProvider<FilterCubit>(create: (context) => FilterCubit()),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,

@@ -83,7 +83,7 @@ class DetailsPage extends StatelessWidget {
             hasScrollBody: false,
             child: SizedBox(
               height: MediaQuery.of(context).size.height * .1,
-              child: const CustomDetailListView(),
+              child: CustomDetailListView(),
             ),
           ),
         ],

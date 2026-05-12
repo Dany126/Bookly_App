@@ -21,13 +21,12 @@ class ImplementationRepo implements HomeRepo {
       List<Item> books = [];
 
       final items = data['items'];
-
       if (items != null) {
         for (var item in items) {
           try {
             books.add(Item.fromJson(item));
           } catch (e) {
-            print('Error parsing book item: $e');
+            log('Error parsing book item: $e');
           }
         }
       }
@@ -48,12 +47,14 @@ class ImplementationRepo implements HomeRepo {
         categoryName: categoryName,
       );
       List<Item> books = [];
-      for (var item in data['items']) {
-        try {
-          books.add(Item.fromJson(item));
-        } catch (e) {
-          // Handle parsing error for this item, e.g., log it or skip it
-          log('Error parsing book item: $e');
+      final items = data['items'];
+      if (items != null) {
+        for (var item in items) {
+          try {
+            books.add(Item.fromJson(item));
+          } catch (e) {
+            log('Error parsing book item: $e');
+          }
         }
       }
       return Right(books);
@@ -72,12 +73,14 @@ class ImplementationRepo implements HomeRepo {
         categoryName: category,
       );
       List<Item> books = [];
-      for (var item in data['items']) {
-        try {
-          books.add(Item.fromJson(item));
-        } catch (e) {
-          // Handle parsing error for this item, e.g., log it or skip it
-          print('Error parsing book item: $e');
+      final items = data['items'];
+      if (items != null) {
+        for (var item in items) {
+          try {
+            books.add(Item.fromJson(item));
+          } catch (e) {
+            log('Error parsing book item: $e');
+          }
         }
       }
       return Right(books);

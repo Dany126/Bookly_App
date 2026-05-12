@@ -1,73 +1,43 @@
-import 'package:bookly_app/Core/utilities/styles.dart';
-import 'package:bookly_app/Features/home/Model%20View/NewestBooksCubit/NewestBooksCubit.dart';
-import 'package:bookly_app/constant.dart';
+import 'package:bookly_app/Features/home/Model%20View/GlobalFilterCubit/FilerCubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomDropDown extends StatefulWidget {
+class CustomDropDown extends StatelessWidget {
   const CustomDropDown({super.key});
 
-  @override
-  State<CustomDropDown> createState() => _CustomDropDownState();
-}
-
-class _CustomDropDownState extends State<CustomDropDown> {
-  String? selectedCategory = 'All';
-
-  final List<String> categories = [
-    'All',
-    'Fiction',
-    'Science',
-    'History',
-    'Business',
-    'Biography',
-    'Technology',
-    'Self-Help',
-    'Romance',
-    'Fantasy',
-    'Horror',
-    'Education',
-    'Children',
+  final categories = const [
+    'all',
+    'fiction',
+    'science',
+    'history',
+    'business',
+    'biography',
+    'technology',
+    'self-help',
+    'romance',
+    'fantasy',
+    'horror',
+    'education',
+    'children',
   ];
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton<String>(
-        value: selectedCategory,
-        dropdownColor: kPrimaryColor,
-        borderRadius: BorderRadius.circular(16),
-        icon: const Icon(Icons.keyboard_arrow_down),
+    final selected = context.watch<FilterCubit>().state.category;
 
-        items: categories.map((item) {
-          return DropdownMenuItem(
-            value: item,
-            child: Center(
-              child: Text(
-                item,
+    return DropdownButton<String>(
+      value: selected,
 
-                style: Styles.textStyle14.copyWith(
-                  fontWeight: FontWeight.w600,
+      items: categories.map((c) {
+        return DropdownMenuItem(value: c, child: Text(c));
+      }).toList(),
 
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          );
-        }).toList(),
+      onChanged: (value) {
+        if (value == null) return;
 
-        onChanged: (value) {
-          if (value == null) return;
-
-          setState(() {
-            selectedCategory = value;
-          });
-
-          context.read<NewestBooksCubit>().fetchNewestBooks(
-            categoryName: value.toLowerCase(),
-          );
-        },
-      ),
+        context.read<FilterCubit>().changeCategory(value);
+      },
     );
   }
 }

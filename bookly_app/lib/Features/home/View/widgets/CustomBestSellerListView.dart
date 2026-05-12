@@ -4,8 +4,10 @@ import 'package:bookly_app/Core/utilities/go_router.dart';
 import 'package:bookly_app/Core/utilities/snack_bar.dart';
 import 'package:bookly_app/Features/home/Model%20View/NewestBooksCubit/NewestBooksCubit.dart';
 import 'package:bookly_app/Features/home/Model%20View/NewestBooksCubit/NewestBooksState.dart';
+import 'package:bookly_app/Features/home/Model%20View/SimilerBooksCubit/SimilarBooksCubit.dart';
 
 import 'package:bookly_app/Features/home/View/widgets/CustomBestSellerItem.dart';
+import 'package:bookly_app/Features/home/View/widgets/custom_drop_down.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -42,6 +44,9 @@ class CustomNewestBooksListView extends StatelessWidget {
                   GoRouter.of(
                     context,
                   ).push(AppRouter.detailsRoute, extra: state.books[index]);
+                  (context).read<SimilarBooksCubit>().fetchSimilarBooks(
+                    category: "all",
+                  );
                 },
                 child: CustomBestSellerItem(item: state.books[index]),
               );
