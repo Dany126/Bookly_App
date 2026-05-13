@@ -7,7 +7,7 @@ import 'package:bookly_app/Features/home/Model/Repo/imp_repo.dart';
 class FeatureBooksCubit extends Cubit<FeatureBooksState> {
   FeatureBooksCubit(this.repo) : super(FeatureBooksInitial());
 
-  final ImplementationRepo repo;
+  final HomeRepo repo;
 
   List<Item> _allBooks = [];
 

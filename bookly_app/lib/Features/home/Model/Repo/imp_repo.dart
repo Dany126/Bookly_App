@@ -1,94 +1,69 @@
-import 'dart:developer';
-
 import 'package:bookly_app/Core/utilities/api_services.dart';
 import 'package:bookly_app/Core/error/failure.dart';
-import 'package:bookly_app/Features/home/Model/Repo/repo.dart';
-import 'package:bookly_app/Features/home/Model/book_model/item.dart';
+import 'package:bookly_app/Core/utilities/cash_service.dart';
+import 'package:bookly_app/Core/utilities/network_info.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
-class ImplementationRepo implements HomeRepo {
-  ApiServices apiServices;
-  ImplementationRepo(this.apiServices);
-  @override
-  Future<Either<ServerFailure, List<Item>>> fetchNewestBooks({
-    required String categoryName,
-  }) async {
+class HomeRepo {
+  final ApiService apiService;
+  final NetworkInfo networkInfo;
+
+  HomeRepo(this.apiService, this.networkInfo);
+
+  Future<Either<Failure, List<dynamic>>> fetchBooks() async {
+    const cacheKey = 'featured_books';
+
     try {
-      final query = categoryName == 'all'
-          ? 'flutter'
-          : categoryName; // or any default
-      final data = await apiServices.get(
-        endPoint: 'volumes?filter=free-ebooks&orderBy=newest&q=$query',
-      );
+      // ===============================
+      // Check Internet
+      // ===============================
 
-      List<Item> books = [];
+      final isConnected = await networkInfo.isConnected();
 
-      final items = data['items'];
-      if (items != null) {
-        for (var item in items) {
-          try {
-            books.add(Item.fromJson(item));
-          } catch (e) {
-            log('Error parsing book item: $e');
-          }
+      // ===============================
+      // OFFLINE FIRST
+      // ===============================
+
+      if (!isConnected) {
+        final cachedData = CacheService.getData(key: cacheKey);
+
+        if (cachedData != null) {
+          return Right(cachedData);
         }
+
+        return Left(NetworkFailure('No internet connection'));
       }
 
-      return Right(books);
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
-    }
-  }
+      // ===============================
+      // API REQUEST
+      // ===============================
 
-  @override
-  Future<Either<ServerFailure, List<Item>>> fetchFeaturedBooks({
-    String categoryName = 'all',
-  }) async {
-    try {
-      var data = await apiServices.get(
-        endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=',
-        categoryName: categoryName,
-      );
-      List<Item> books = [];
-      final items = data['items'];
-      if (items != null) {
-        for (var item in items) {
-          try {
-            books.add(Item.fromJson(item));
-          } catch (e) {
-            log('Error parsing book item: $e');
-          }
-        }
-      }
-      return Right(books);
-    } catch (e) {
-      return left(ServerFailure(e.toString()));
-    }
-  }
+      final response = await apiService.get(endPoint: 'volumes?q=programming');
 
-  @override
-  Future<Either<ServerFailure, List<Item>>> fetchSimilarBooks({
-    required String category,
-  }) async {
-    try {
-      var data = await apiServices.get(
-        endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=',
-        categoryName: category,
-      );
-      List<Item> books = [];
-      final items = data['items'];
-      if (items != null) {
-        for (var item in items) {
-          try {
-            books.add(Item.fromJson(item));
-          } catch (e) {
-            log('Error parsing book item: $e');
-          }
-        }
-      }
+      final books = response.data['items'];
+
+      // ===============================
+      // SAVE CACHE
+      // ===============================
+
+      await CacheService.saveData(key: cacheKey, value: books);
+
       return Right(books);
+    } on DioException catch (e) {
+      // ===============================
+      // RETURN CACHE IF API FAILS
+      // ===============================
+
+      final cachedData = CacheService.getData(key: cacheKey);
+
+      if (cachedData != null) {
+        return Right(cachedData);
+      }
+
+      return Left(ServerFailure.fromDioException(e));
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return Left(CacheFailure(e.toString()));
     }
   }
 }
