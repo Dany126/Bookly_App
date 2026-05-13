@@ -14,8 +14,11 @@ class ImplementationRepo implements HomeRepo {
     required String categoryName,
   }) async {
     try {
+      final query = categoryName == 'all'
+          ? 'flutter'
+          : categoryName; // or any default
       final data = await apiServices.get(
-        endPoint: 'volumes?filter=free-ebooks&orderBy=newest&q=$categoryName',
+        endPoint: 'volumes?filter=free-ebooks&orderBy=newest&q=$query',
       );
 
       List<Item> books = [];

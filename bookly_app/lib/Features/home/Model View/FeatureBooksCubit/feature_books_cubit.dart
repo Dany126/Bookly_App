@@ -1,47 +1,57 @@
-import 'package:bookly_app/Features/home/Model%20View/FeatureBooksCubit/feature_books_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:bookly_app/Features/home/Model/book_model/item.dart';
+import 'package:bookly_app/Features/home/Model View/FeatureBooksCubit/feature_books_state.dart';
+import 'package:bookly_app/Features/home/Model/Repo/imp_repo.dart';
+
 class FeatureBooksCubit extends Cubit<FeatureBooksState> {
-  FeatureBooksCubit(this._fetchFeatureBooksUseCase)
-    : super(FeatureBooksInitial());
+  FeatureBooksCubit(this.repo) : super(FeatureBooksInitial());
 
-  final FetchFeatureBooksUseCase _fetchFeatureBooksUseCase;
-  List<Item> _allBooks = []; // ✅ class-level field, not local variable
+  final ImplementationRepo repo;
 
-  Future<void> fetchFeatureBooks() async {
+  List<Item> _allBooks = [];
+
+  Future<void> fetchFeatureBooks({required String categoryName}) async {
     emit(FeatureBooksLoading());
-    final result = await _fetchFeatureBooksUseCase.call();
-    result.fold((failure) => emit(FeatureBooksFailure(failure)), (books) {
-      _allBooks = books; // ✅ save original list
-      emit(FeatureBooksSuccess(books));
-    });
+
+    final result = await repo.fetchFeaturedBooks(categoryName: categoryName);
+
+    result.fold(
+      (failure) {
+        emit(FeatureBooksFailure(failure));
+      },
+      (books) {
+        _allBooks = books;
+        emit(FeatureBooksSuccess(books));
+      },
+    );
   }
 
   void filterByCategory(String query) {
     if (_allBooks.isEmpty) return;
 
-    if (query == "all") {
-      emit(FeatureBooksSuccess(_allBooks)); // ✅ restore full list
+    if (query.toLowerCase() == "all") {
+      emit(FeatureBooksSuccess(_allBooks));
       return;
     }
 
-    final filtered = _allBooks.where((book) {
-      final categories =
-          book?.volumeInfo.categories?.map((c) => c.toLowerCase()).toList() ??
-          [];
-      final title = book.volumeInfo?.title?.toLowerCase() ?? "";
-      final author = book.volumeInfo?.authors?.join(" ").toLowerCase() ?? "";
+    final lowerQuery = query.toLowerCase();
 
-      // ✅ Check category first, fallback to title/author
-      return categories.any((c) => c.contains(query.toLowerCase())) ||
-          title.contains(query.toLowerCase()) ||
-          author.contains(query.toLowerCase());
+    final filtered = _allBooks.where((book) {
+      final volumeInfo = book.volumeInfo;
+
+      final categories =
+          volumeInfo?.categories?.map((c) => c.toLowerCase()).toList() ?? [];
+
+      final title = volumeInfo?.title?.toLowerCase() ?? "";
+
+      final author = volumeInfo?.authors?.join(" ").toLowerCase() ?? "";
+
+      return categories.any((c) => c.contains(lowerQuery)) ||
+          title.contains(lowerQuery) ||
+          author.contains(lowerQuery);
     }).toList();
 
-    emit(
-      filtered.isEmpty
-          ? const FeatureBooksSuccess([]) // or emit a NoResults state
-          : FeatureBooksSuccess(filtered),
-    );
+    emit(FeatureBooksSuccess(filtered));
   }
 }
