@@ -1,40 +1,28 @@
-import 'package:bookly_app/Features/home/Model%20View/GlobalFilterCubit/FilerCubit.dart';
 import 'package:bookly_app/Features/home/Model%20View/SimilerBooksCubit/SimilarBooksState.dart';
-import 'package:bookly_app/Features/home/Model/Repo/repo.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bookly_app/Features/home/Model/Repo/imp_repo.dart';
 
 class SimilarBooksCubit extends Cubit<SimilarBooksState> {
-  SimilarBooksCubit(this.homeRepo, this.filterCubit)
-    : super(SimilarBooksInitial()) {
-    filterCubit.stream.listen((filter) {
-      fetchSimilarBooks(category: filter.category);
-    });
-  }
-  final FilterCubit filterCubit;
+  SimilarBooksCubit(this.repo) : super(SimilarBooksInitial());
 
-  final HomeRepo homeRepo;
+  final HomeRepo repo;
 
-  String? currentCategory;
+  String? _currentCategory;
 
-  Future<void> fetchSimilarBooks({required String category}) async {
-    if (currentCategory == category && state is SimilarBooksSuccess) {
+  Future<void> fetchSimilarBooks(String category) async {
+    if (_currentCategory == category && state is SimilarBooksSuccess) {
       return;
     }
 
-    currentCategory = category;
+    _currentCategory = category;
 
     emit(SimilarBooksLoading());
 
-    final result = await homeRepo.fetchSimilarBooks(category: category);
+    final result = await repo.fetchSimilarBooks(category: category);
 
     result.fold(
-      (failure) {
-        emit(SimilarBooksFailure(failure));
-      },
-      (books) {
-        emit(SimilarBooksSuccess(similarBooks: books));
-      },
+      (failure) => emit(SimilarBooksFailure(failure)),
+      (books) => emit(SimilarBooksSuccess(similarBooks: books)),
     );
   }
 }

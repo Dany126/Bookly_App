@@ -36,9 +36,7 @@ class CustomHomePageListItem extends StatelessWidget {
                           AppRouter.detailsRoute,
                           extra: state.books[index],
                         );
-                        (context).read<SimilarBooksCubit>().fetchSimilarBooks(
-                          category: '',
-                        );
+                        context.read<SimilarBooksCubit>().fetchSimilarBooks('');
                       },
 
                       child: CustomBookItem(

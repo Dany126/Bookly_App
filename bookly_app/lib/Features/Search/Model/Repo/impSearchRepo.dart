@@ -11,16 +11,18 @@ class ImplementationSearchRepo implements SearchRepo {
   @override
   Future<Either<Failure, List<BookModel>>> fetchAllBooks() async {
     try {
-      var result = await ApiServices(
+      final response = await ApiService(
         dio,
       ).get(endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=');
 
-      List<BookModel> books = [];
-      for (var item in result['items']) {
+      final items = (response.data['items'] as List<dynamic>?) ?? [];
+
+      final books = <BookModel>[];
+      for (final item in items) {
         try {
-          books.add(BookModel.fromJson(item));
+          books.add(BookModel.fromJson(item as Map<String, dynamic>));
         } catch (e) {
-          // Handle parsing error for this item, e.g., log it or skip it
+          // Handle parsing error for this item, e.g. log or skip it
           print('Error parsing book item: $e');
         }
       }

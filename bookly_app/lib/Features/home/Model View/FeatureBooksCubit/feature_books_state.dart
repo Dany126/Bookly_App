@@ -9,16 +9,26 @@ abstract class FeatureBooksState extends Equatable {
   List<Object?> get props => [];
 }
 
-class FeatureBooksInitial extends FeatureBooksState {}
+class FeatureBooksInitial extends FeatureBooksState {
+  const FeatureBooksInitial();
+}
 
-class FeatureBooksLoading extends FeatureBooksState {}
+class FeatureBooksLoading extends FeatureBooksState {
+  const FeatureBooksLoading();
+}
 
 class FeatureBooksFailure extends FeatureBooksState {
   final Failure failure;
   const FeatureBooksFailure(this.failure);
+
+  @override
+  List<Object?> get props => [failure];
 }
 
 class FeatureBooksSuccess extends FeatureBooksState {
   final List<Item> books;
   const FeatureBooksSuccess(this.books);
+
+  @override
+  List<Object?> get props => [books];
 }

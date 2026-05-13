@@ -44,9 +44,7 @@ class CustomNewestBooksListView extends StatelessWidget {
                   GoRouter.of(
                     context,
                   ).push(AppRouter.detailsRoute, extra: state.books[index]);
-                  (context).read<SimilarBooksCubit>().fetchSimilarBooks(
-                    category: "all",
-                  );
+                  context.read<SimilarBooksCubit>().fetchSimilarBooks('all');
                 },
                 child: CustomBestSellerItem(item: state.books[index]),
               );

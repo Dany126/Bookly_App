@@ -1,4 +1,5 @@
 import 'package:bookly_app/Features/home/Model%20View/GlobalFilterCubit/FilerCubit.dart';
+import 'package:bookly_app/Features/home/Model%20View/NewestBooksCubit/NewestBooksCubit.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +38,7 @@ class CustomDropDown extends StatelessWidget {
         if (value == null) return;
 
         context.read<FilterCubit>().changeCategory(value);
+        context.read<NewestBooksCubit>().fetchNewestBooks(value);
       },
     );
   }
